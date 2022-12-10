@@ -1,50 +1,60 @@
 import React, { useState } from "react";
 import style from "./Input.module.css";
+import useInput from "../Hooks/use-Input";
 
 const Input = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [inputIsValid, setInputIsValid] = useState(false);
-  const [inputIsTouched, setInputIsTouched] = useState(false);
-  const inputOnChangeHandler = (event) => {
-    setInputValue(event.target.value);
-    if (event.target.value.trim() === "") {
-      setInputIsValid(false);
-      return;
-    }
-    setInputIsValid(true );
-  };
-  const onBlurHandler = () => {
-    setInputIsTouched(true);
-    if (inputValue.trim() === "") {
-      setInputIsValid(false);
-      return;
-    }
-    setInputIsValid(true);
-    setInputIsTouched(true);
-  };
+  const {
+    value: nameInputValue,
+    isValid: inputIsValid,
+    errorHandler: inputError,
+    onChangeHandler: inputOnChangeHandler,
+    onBlurHandler: inputOnBlurHandler,
+    resetValue: nameReset,
+  } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: emailInputValue,
+    isValid: emailIsValid,
+    errorHandler: emailError,
+    onChangeHandler: emailOnChangeHandler,
+    onBlurHandler: emailOnBlurHandler,
+    resetValue: emailReset,
+  } = useInput((value) => value.includes("@"));
+
   const inputSubmitHandler = (event) => {
     event.preventDefault();
-    if (inputValue.trim() === "") {
-      setInputIsValid(false);
+
+    if (!inputIsValid) {
       return;
     }
-    setInputIsValid(true);
-    setInputValue("");
-    console.log(inputValue);
+    if (!emailIsValid) {
+      return;
+    }
+
+    console.log(nameInputValue);
+    nameReset();
+    emailReset();
   };
-  const errorHandler = !inputIsValid && inputIsTouched ? style.error : "";
+
   return (
     <form onSubmit={inputSubmitHandler}>
       <label htmlFor="">Username</label>
       <input
         type="text"
         onChange={inputOnChangeHandler}
-        value={inputValue}
-        onBlur={onBlurHandler}
+        value={nameInputValue}
+        onBlur={inputOnBlurHandler}
       />
-      {errorHandler && (
-        <p className={errorHandler}>Please enter a valid input</p>
-      )}
+      {inputError && <p className={style.error}>Please enter a valid input</p>}
+      <label htmlFor="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        onChange={emailOnChangeHandler}
+        value={emailInputValue}
+        onBlur={emailOnBlurHandler}
+      />
+      {emailError && <p className={style.error}>Please enter a valid input</p>}
       <button type="submit">Add</button>
     </form>
   );
