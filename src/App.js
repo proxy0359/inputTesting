@@ -1,11 +1,12 @@
 import React from "react";
 import "./App.css";
 import Input from "./Components/Input";
+import SimpleInput from "./Components/SimpleInput";
 
 function App() {
   return (
     <React.Fragment>
-      <Input />
+      <SimpleInput />
     </React.Fragment>
   );
 }
