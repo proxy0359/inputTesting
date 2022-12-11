@@ -1,0 +1,29 @@
+[33mcommit 5a71ad4b429f277de39350600b94b86ea2eb8c98[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: proxyjem jackprox <jemjem.santos03@gmail.com>
+Date:   Sun Dec 11 20:06:40 2022 +0800
+
+    added 3 inputs new practice
+
+[33mcommit 5f52d4c50fe494189b066b18866045bf6ca3ba8a[m
+Author: proxyjem jackprox <jemjem.santos03@gmail.com>
+Date:   Sun Dec 11 03:47:18 2022 +0800
+
+    added custom hooks
+
+[33mcommit 780f5c32431cc6eaec5d86b19ead8f2452f849d7[m
+Author: proxyjem jackprox <jemjem.santos03@gmail.com>
+Date:   Sat Dec 10 01:31:35 2022 +0800
+
+    input done
+
+[33mcommit 3cd3cb438b4d0cd6d4f331e12bf9318116605595[m
+Author: proxyjem jackprox <jemjem.santos03@gmail.com>
+Date:   Fri Dec 9 23:52:14 2022 +0800
+
+    first commit
+
+[33mcommit a63b67f0fb94069ac20ff1a7cac4ec10416e1907[m
+Author: proxyjem jackprox <jemjem.santos03@gmail.com>
+Date:   Fri Dec 9 23:33:36 2022 +0800
+
+    Initialize project using Create React App

@@ -1,74 +1,62 @@
 import React, { useState } from "react";
 
+import useTheInput from "../Hooks/use-theInput";
+
 const SimpleInput = (props) => {
-  const [firstNameVal, setFirstNameVal] = useState("");
-  const [fnIsTouched, setFnIsTouched] = useState(false);
-
-  const [lastNameVal, setLastNameVal] = useState("");
-  const [lnIsTouched, setLnIsTouched] = useState(false);
-
-  const [emailVal, setEmailVal] = useState("");
-  const [emailIsTouched, setEmailIsTouched] = useState(false);
+  const {
+    isValid: fnValid,
+    inputError: fnError,
+    inputVal: fnVal,
+    inputReset: fnReset,
+    inputBlurHandler: fnBlurHandler,
+    inputChangeHandler: fnChangeHandler,
+  } = useTheInput((value) => value.trim() !== "");
 
   // FIRST NAME ERROR HANDLER
-  const fnValid = firstNameVal.trim() !== "";
-  const fnError = !fnValid && fnIsTouched;
+
+  const {
+    isValid: lnValid,
+    inputError: lnError,
+    inputVal: lnVal,
+    inputReset: lnReset,
+    inputBlurHandler: lnBlurHandler,
+    inputChangeHandler: lnChangeHandler,
+  } = useTheInput((value) => value.trim() !== "");
 
   //LAST NAME ERROR HANDLER
-  const lnValid = lastNameVal.trim() !== "";
-  const lnError = !lnValid && lnIsTouched;
 
   //EMAIL ERROR HANDLER
-  const emailIsValid = emailVal.includes("@");
-  const emailError = !emailIsValid && emailIsTouched;
-
-  const fnChangeHandler = (event) => {
-    setFirstNameVal(event.target.value);
-  };
-
-  const fnBlurHandler = () => {
-    setFnIsTouched(true);
-  };
-
-  const lnChangeHandler = (event) => {
-    setLastNameVal(event.target.value);
-  };
-
-  const lsBlurHandler = () => {
-    setLnIsTouched(true);
-  };
-
-  const emailChangeHandler = (event) => {
-    setEmailVal(event.target.value);
-  };
-  const emailBlurHandler = () => {
-    setEmailIsTouched(true);
-  };
+  const {
+    isValid: emailValid,
+    inputError: emailError,
+    inputVal: emailVal,
+    inputReset: emailReset,
+    inputBlurHandler: emailBlurHandler,
+    inputChangeHandler: emailChangeHandler,
+  } = useTheInput((value) => value.includes("@"));
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    setFnIsTouched(true);
-    setLnIsTouched(true);
-    setEmailIsTouched(true);
+    fnBlurHandler(true);
+    lnBlurHandler(true);
+    emailBlurHandler(true);
 
     if (!fnValid) {
       return;
     } else if (!lnValid) {
       return;
-    } else if (!emailIsValid) {
+    } else if (!emailValid) {
       return;
     }
 
     console.log(
-      `First Name: ${firstNameVal}. Last Name: ${lastNameVal}  ,  Email: ${emailVal}`
+      `First Name: ${fnVal}. Last Name: ${lnVal}  ,  Email: ${emailVal}`
     );
 
-    setFirstNameVal("");
-    setEmailVal("");
-    setLastNameVal("");
-    setEmailIsTouched(false);
-    setFnIsTouched(false);
-    setLnIsTouched(false);
+    fnReset();
+    lnReset();
+
+    emailReset();
   };
 
   const fnStyleError = fnError ? "form-control invalid" : "form-control";
@@ -83,7 +71,7 @@ const SimpleInput = (props) => {
             type="text"
             id="name"
             onChange={fnChangeHandler}
-            value={firstNameVal}
+            value={fnVal}
             onBlur={fnBlurHandler}
           />
           {fnError && <p className="error-text">Please Enter A valid Name</p>}
@@ -94,8 +82,8 @@ const SimpleInput = (props) => {
             type="text"
             id="lastName"
             onChange={lnChangeHandler}
-            value={lastNameVal}
-            onBlur={lsBlurHandler}
+            value={lnVal}
+            onBlur={lnBlurHandler}
           />
           {lnError && <p className="error-text">Please Enter A valid Name</p>}
         </div>
